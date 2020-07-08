@@ -19,6 +19,11 @@ public class ProductController {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	public Optional<Product> getProductById(int id) {
+		Optional<Product> prodOptional = this.productRepository.findById(id);
+		return prodOptional;
+	}
+	
 	public void createProduct(ProductDto productDto) {
 		Product product = new Product(productDto.getId(), productDto.getStock(), productDto.getName(), productDto.getDescription(), productDto.getPrice(), null, productDto.getImage());
 		this.productRepository.save(product);		
@@ -35,16 +40,16 @@ public class ProductController {
 	}
 	
 	public Optional<ProductDto> findProductById(int id){
-		Optional<Product> prodOptional= this.productRepository.findById(id);
-		if(prodOptional.isPresent()) {
+		Optional<Product> prodOptional= this.getProductById(id);
+		if (prodOptional.isPresent()) {
 			return Optional.of(new ProductDto(prodOptional.get()));
-		}else {
+		} else {
 			return Optional.empty();
 		}
 	}
 	
 	public boolean editProduct(int id, ProductDto productDto) {
-		Optional<Product> prodOptional= this.productRepository.findById(id);
+		Optional<Product> prodOptional= this.getProductById(id);
 		if(!prodOptional.isPresent()) return false;
 		Product product= prodOptional.get();
 		product.setDescription(productDto.getDescription());
