@@ -50,8 +50,8 @@ public class ProductResourceTest {
 	
 	@Test
 	public void editProductTest() {
-		this.productDto.setName("camiseta");
-		this.productDto.setDescription("camiseta de marvel");
+		this.productDto.setName("saco");
+		this.productDto.setDescription("saco de marvel");
 		this.productDto.setPrice(50.00);
 		this.productDto.setStock(15);
 		restService.restBuilder().path(ProductResource.PRODUCT)
