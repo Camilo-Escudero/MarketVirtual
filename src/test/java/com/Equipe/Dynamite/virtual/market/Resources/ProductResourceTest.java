@@ -28,7 +28,7 @@ public class ProductResourceTest {
 	
 	@Before
 	public void before() {
-		this.productDto= new ProductDto(1,50, "name", "description", 50, null, null);
+		this.productDto= new ProductDto(1, 50, "name", "description", 50 , categorie, image);
 	}
 	
 	@Test
