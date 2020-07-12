@@ -28,7 +28,7 @@ public class ProductResourceTest {
 	
 	@Before
 	public void before() {
-		this.productDto= new ProductDto(1, 50, "name", "description", 50 , categorie, image);
+		this.productDto= new ProductDto(1, 50, "name", "description", 50 , null, null);
 	}
 	
 	@Test
@@ -54,6 +54,8 @@ public class ProductResourceTest {
 		this.productDto.setDescription("saco de marvel");
 		this.productDto.setPrice(50.00);
 		this.productDto.setStock(15);
+		this.productDto.setCategorie(null);
+		this.productDto.setImage(null);
 		restService.restBuilder().path(ProductResource.PRODUCT)
 		.path(ProductResource.ID).expand(1).body(productDto).put().build();	
 	}
