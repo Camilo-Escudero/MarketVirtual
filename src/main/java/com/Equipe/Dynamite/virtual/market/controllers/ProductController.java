@@ -7,11 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-
 import com.Equipe.Dynamite.virtual.market.dtos.ProductDto;
 import com.Equipe.Dynamite.virtual.market.entities.Product;
 import com.Equipe.Dynamite.virtual.market.repositories.ProductRepository;
-
 
 @Controller
 public class ProductController {
@@ -25,7 +23,8 @@ public class ProductController {
 	}
 	
 	public void createProduct(ProductDto productDto) {
-		Product product = new Product(productDto.getId(), productDto.getStock(), productDto.getName(), productDto.getDescription(), productDto.getPrice(), null, productDto.getImage());
+		Product product = new Product(productDto.getId(), productDto.getStock(), productDto.getName(), 
+				productDto.getDescription(), productDto.getPrice(),  null, productDto.getImage());
 		this.productRepository.save(product);		
 	}
 	
@@ -50,13 +49,15 @@ public class ProductController {
 	
 	public boolean editProduct(int id, ProductDto productDto) {
 		Optional<Product> prodOptional= this.getProductById(id);
-		if(!prodOptional.isPresent()) return false;
+		if(!prodOptional.isPresent())
+			return false;
 		Product product= prodOptional.get();
 		product.setDescription(productDto.getDescription());
 		product.setName(productDto.getName());
 		product.setPrice(product.getPrice());
 		product.setStock(productDto.getStock());
 		product.setImage(productDto.getImage());
+		product.setCategorie(productDto.getCategorie());
 		this.productRepository.save(product);
 		return true;
 	}
