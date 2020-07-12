@@ -51,6 +51,7 @@ public class CategorieResourceTest {
 
 	@Test
 	public void editCategorieTest() {
+		this.categorieDTo.setId(1);
 		this.categorieDTo.setNombre("Ropa");
 		this.productDto.setId(15);
 		restService.restBuilder().path(CategorieResource.CATEGORIE)
@@ -59,12 +60,5 @@ public class CategorieResourceTest {
 		
 	}
 
-	
-	
-	
-	
-	
-	
-	
 
 }
