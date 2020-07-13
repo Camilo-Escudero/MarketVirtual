@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.Equipe.Dynamite.virtual.market.dtos.CategorieDTo;
-import com.Equipe.Dynamite.virtual.market.dtos.ProductDto;
 import com.Equipe.Dynamite.virtual.market.resources.CategorieResource;
 
 public class CategorieResourceTest {
@@ -18,13 +17,11 @@ public class CategorieResourceTest {
 
 	@Autowired
 	private RestService restService;
-	private ProductDto productDto;
 	private CategorieDTo categorieDTo;
 	
 	@Before
 	public void Before() {
-		this.productDto = new ProductDto(1, 5, "backpac", "wallet made from lether", 5.50, null, null);
-		this.categorieDTo = new CategorieDTo(1, "color", this.productDto);
+		this.categorieDTo = new CategorieDTo(1, "color");
 	
 	}
 	@Test
@@ -53,7 +50,6 @@ public class CategorieResourceTest {
 	public void editCategorieTest() {
 		this.categorieDTo.setId(1);
 		this.categorieDTo.setNombre("Ropa");
-		this.productDto.setId(15);
 		restService.restBuilder().path(CategorieResource.CATEGORIE)
 		.path(CategorieResource.ID).expand(1).body(categorieDTo).put().build();
 

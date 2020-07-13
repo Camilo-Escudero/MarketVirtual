@@ -14,7 +14,7 @@ public class Categorie {
 	private int id;
 
 	private String nombre;
-	private Product product;
+	
 
 
 	public Categorie() {
@@ -22,11 +22,11 @@ public class Categorie {
 	}
 
 
-	public Categorie(int id, String nombre,Product product) {
+	public Categorie(int id, String nombre) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.product=product;
+		
 	}
 
 
@@ -50,14 +50,4 @@ public class Categorie {
 	}
 
 
-	public Product getProduct() {
-		return product;
-	}
-
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-	
-	
 }

@@ -10,33 +10,25 @@ import org.springframework.stereotype.Controller;
 import  com.Equipe.Dynamite.virtual.market.dtos.CategorieDTo;
 import  com.Equipe.Dynamite.virtual.market.entities.Categorie;
 import  com.Equipe.Dynamite.virtual.market.repositories.CategorieRepository;
-import  com.Equipe.Dynamite.virtual.market.entities.Product;
+
 
 @Controller
 public class CategorieController {
 	
 	@Autowired
     private CategorieRepository categorieRepository;
-	@Autowired
-	private ProductController productController;
+
 	
 	public Optional <Categorie> getCategorieById(int id){
 		Optional <Categorie> catOptional=this.categorieRepository.findById(id);
 		return catOptional;
 	}
-	
-	public String  createCategorie(CategorieDTo categorieDTo) {
-			Optional<Product> productOptional = this.productController
-					.getProductById(categorieDTo.getProduct().getId());
-			if (!productOptional.isPresent())
-				return "product";
-			Product product = productOptional.get();
-		
-	Categorie categorie=new Categorie (categorieDTo.getId(),categorieDTo.getNombre(),product);
+		public String createCategorie(CategorieDTo categorieDTo) {
+	Categorie categorie=new Categorie (categorieDTo.getId(),categorieDTo.getNombre());
 	this.categorieRepository.save(categorie);
 	return "created";
 }
-	public List<CategorieDTo> readAllCategorie() {
+	    public List<CategorieDTo> readAllCategorie() {
 		List<Categorie> categorieList = this.categorieRepository.findAll();
 		List<CategorieDTo> categorieListDto = new ArrayList<CategorieDTo>();
 		for (Categorie categorie : categorieList) {
@@ -58,26 +50,12 @@ public class CategorieController {
 		Optional<Categorie> catOptional = this.getCategorieById(id);
 		if (!catOptional.isPresent())
 			return false;
-		Optional<Product> productOptional = this.productController
-				.getProductById(categorieDTo.getProduct().getId());
-		if (!productOptional.isPresent())
-			return false;
 		Categorie categorie= catOptional.get();
 		categorie.setNombre(categorieDTo.getNombre());
-		categorie.setProduct(productOptional.get());
+		categorie.setId(categorieDTo.getId());
 		this.categorieRepository.save(categorie);
 		return true;
 		
 	}		
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
