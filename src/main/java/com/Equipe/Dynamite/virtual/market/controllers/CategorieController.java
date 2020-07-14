@@ -46,7 +46,7 @@ public class CategorieController {
 		}
 	}
 
-	public boolean editCaracteristic(int id, CategorieDTo categorieDTo) {
+	public boolean editCategorie(int id, CategorieDTo categorieDTo) {
 		Optional<Categorie> catOptional = this.getCategorieById(id);
 		if (!catOptional.isPresent())
 			return false;

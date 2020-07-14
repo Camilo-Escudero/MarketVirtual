@@ -52,8 +52,6 @@ public class CategorieResourceTest {
 		this.categorieDTo.setNombre("Ropa");
 		restService.restBuilder().path(CategorieResource.CATEGORIE)
 		.path(CategorieResource.ID).expand(1).body(categorieDTo).put().build();
-
-		
 	}
 
 

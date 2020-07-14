@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+
 import com.Equipe.Dynamite.virtual.market.dtos.ProductDto;
+import com.Equipe.Dynamite.virtual.market.entities.Categorie;
 import com.Equipe.Dynamite.virtual.market.entities.Product;
 import com.Equipe.Dynamite.virtual.market.repositories.ProductRepository;
 
@@ -16,16 +18,24 @@ public class ProductController {
 	
 	@Autowired
 	private ProductRepository productRepository;
-	
+	@Autowired
+	private CategorieController categorieController;
 	public Optional<Product> getProductById(int id) {
 		Optional<Product> prodOptional = this.productRepository.findById(id);
 		return prodOptional;
 	}
 	
-	public void createProduct(ProductDto productDto) {
+	public String createProduct(ProductDto productDto) {
+		Optional <Categorie> catOptional = this.categorieController
+				.getCategorieById(productDto.getCategorie().getId());
+		if (!catOptional.isPresent())
+			return "categorie";
+		catOptional.get();
+			
 		Product product = new Product(productDto.getId(), productDto.getStock(), productDto.getName(), 
 				productDto.getDescription(), productDto.getPrice(),  null, productDto.getImage());
-		this.productRepository.save(product);		
+		this.productRepository.save(product);	
+		return "created";
 	}
 	
 	public List<ProductDto> readAllProducts(){
@@ -51,6 +61,10 @@ public class ProductController {
 		Optional<Product> prodOptional= this.getProductById(id);
 		if(!prodOptional.isPresent())
 			return false;
+		Optional <Categorie> catOptional = this.categorieController.getCategorieById(productDto.getCategorie().getId());
+		if (!catOptional.isPresent())
+			return false;
+	
 		Product product= prodOptional.get();
 		product.setDescription(productDto.getDescription());
 		product.setName(productDto.getName());
